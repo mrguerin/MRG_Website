@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page Not Found — Marc-Ryan Guerin</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Favicons -->
+  <link rel="icon" href="/assets/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+  <meta name="theme-color" content="#0A1628">
+
+  <!-- AOS -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+
+  <link rel="stylesheet" href="/css/styles.css" />
+
+  <style>
+    .error-section {
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-block-start: var(--nav-height);
+      background:
+        radial-gradient(ellipse 60% 55% at 50% 38%, rgba(30,74,122,.45) 0%, transparent 60%),
+        linear-gradient(150deg, #0A1628 0%, #091828 50%, #0c1f38 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .error-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(201,168,76,.08) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+
+    .error-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: var(--space-16) var(--container-pad);
+      max-width: 600px;
+    }
+
+    .error-content .section-label {
+      display: block;
+      margin-bottom: var(--space-4);
+    }
+
+    .error-heading {
+      font-family: var(--font-display);
+      font-size: clamp(var(--text-4xl), 7vw, var(--text-6xl));
+      font-weight: 700;
+      color: var(--cream);
+      line-height: 1.1;
+      margin-bottom: var(--space-6);
+    }
+
+    .error-body {
+      font-size: var(--text-lg);
+      font-weight: 300;
+      color: rgba(248, 244, 238, .65);
+      line-height: 1.7;
+      margin-bottom: var(--space-10);
+    }
+
+    .error-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-5);
+    }
+
+    .error-email-link {
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--gold);
+      text-decoration: underline;
+      text-decoration-color: rgba(201, 168, 76, .35);
+      text-underline-offset: 3px;
+      transition: color var(--transition), text-decoration-color var(--transition);
+    }
+
+    .error-email-link:hover {
+      color: var(--gold-light);
+      text-decoration-color: var(--gold);
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header scrolled" id="site-header">
+    <nav class="nav container" aria-label="Primary navigation">
+      <a href="/" class="nav__logo">Marc-Ryan Guerin</a>
+
+      <button class="nav__toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-menu">
+        <span class="nav__toggle-bar"></span>
+        <span class="nav__toggle-bar"></span>
+        <span class="nav__toggle-bar"></span>
+      </button>
+
+      <ul class="nav__menu" id="nav-menu" role="list">
+        <li><a href="/#about"        class="nav__link">About</a></li>
+        <li><a href="/#expertise"    class="nav__link">Expertise</a></li>
+        <li><a href="/#track-record" class="nav__link">Track Record</a></li>
+        <li><a href="/#case-studies" class="nav__link">Case Studies</a></li>
+        <li><a href="/#experience"   class="nav__link">Experience</a></li>
+        <li><a href="/#contact"      class="nav__link nav__link--cta">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="error-section" aria-labelledby="error-heading">
+      <div class="error-content" data-aos="fade-up">
+        <span class="section-label">Error 404</span>
+        <h1 class="error-heading" id="error-heading">Page not found.</h1>
+        <p class="error-body">
+          The page you're looking for doesn't exist. Try the homepage or send me a note.
+        </p>
+        <div class="error-actions">
+          <a href="/" class="btn btn--primary">Return home</a>
+          <a href="mailto:marcryan@gmail.com" class="error-email-link">Email me</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="site-footer__copy">&copy; <span id="footer-year"></span> Marc-Ryan Guerin</p>
+      <p class="site-footer__sub">Built with care in Dallas, Texas.</p>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script src="https://unpkg.com/lucide@0.483.0/dist/umd/lucide.min.js"></script>
+  <script>
+    'use strict';
+    lucide.createIcons();
+    AOS.init({ duration: 700, easing: 'ease-out-cubic', once: true });
+
+    const yearEl = document.getElementById('footer-year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    const toggle = document.getElementById('nav-toggle');
+    const menu   = document.getElementById('nav-menu');
+    if (toggle && menu) {
+      toggle.addEventListener('click', () => {
+        const isOpen = menu.classList.toggle('is-open');
+        toggle.setAttribute('aria-expanded', String(isOpen));
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+      });
+    }
+  </script>
+</body>
+</html>
