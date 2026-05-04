@@ -1,5 +1,9 @@
 'use strict';
 
+/* ─── Mobile scroll fix ─────────────────────────── */
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+window.addEventListener('load', () => window.scrollTo(0, 0));
+
 /* ─── Lucide icons ─────────────────────────────── */
 lucide.createIcons();
 
@@ -110,3 +114,101 @@ const sectionObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.5 });
 
 sections.forEach(s => sectionObserver.observe(s));
+
+/* ─── World Map (amCharts 5) ────────────────────── */
+(function initWorldMap() {
+  if (!document.getElementById('world-map') || typeof am5 === 'undefined') return;
+
+  const NAVY      = am5.color(0x163358);
+  const GOLD      = am5.color(0xc9a84c);
+  const CREAM_DIM = am5.color(0xf8f4ee);
+
+  const root = am5.Root.new('world-map');
+
+  const chart = root.container.children.push(
+    am5map.MapChart.new(root, {
+      projection:    am5map.geoMercator(),
+      panX:          'none',
+      panY:          'none',
+      wheelX:        'none',
+      wheelY:        'none',
+      maxZoomLevel:  1,
+    })
+  );
+
+  /* Land polygons */
+  const polygonSeries = chart.series.push(
+    am5map.MapPolygonSeries.new(root, {
+      geoJSON:  am5geodata_worldLow,
+      exclude:  ['AQ'],
+    })
+  );
+  polygonSeries.mapPolygons.template.setAll({
+    fill:           NAVY,
+    stroke:         CREAM_DIM,
+    strokeOpacity:  0.1,
+    strokeWidth:    0.5,
+    interactive:    false,
+  });
+  polygonSeries.mapPolygons.template.states.create('hover', { fill: NAVY });
+
+  /* Trans-Atlantic arcs: Paris → Chicago, Paris → Newport */
+  const lineSeries = chart.series.push(am5map.MapLineSeries.new(root, {}));
+  lineSeries.mapLines.template.setAll({
+    stroke:         GOLD,
+    strokeWidth:    1.5,
+    strokeDasharray:[5, 4],
+    strokeOpacity:  0.55,
+    interactive:    false,
+  });
+  [[2.3, 48.9, -87.6, 41.9], [2.3, 48.9, -71.3, 41.5]].forEach(([x1,y1,x2,y2]) => {
+    lineSeries.data.push({
+      geometry: { type: 'LineString', coordinates: [[x1,y1],[x2,y2]] }
+    });
+  });
+
+  /* City markers */
+  const pointSeries = chart.series.push(am5map.MapPointSeries.new(root, {}));
+
+  const cityTooltip = am5.Tooltip.new(root, { pointerOrientation: 'down' });
+  cityTooltip.get('background').setAll({
+    fill:          am5.color(0x0a1628),
+    stroke:        GOLD,
+    strokeOpacity: 0.35,
+    cornerRadiusTL: 4, cornerRadiusTR: 4,
+    cornerRadiusBL: 4, cornerRadiusBR: 4,
+  });
+  cityTooltip.label.setAll({
+    fill:     CREAM_DIM,
+    fontSize: 12,
+    lineHeight: 1.6,
+  });
+
+  pointSeries.bullets.push(() =>
+    am5.Bullet.new(root, {
+      sprite: am5.Circle.new(root, {
+        radius:      5,
+        fill:        GOLD,
+        stroke:      GOLD,
+        strokeWidth: 0,
+        cursorOverStyle: 'pointer',
+        tooltip:     cityTooltip,
+        tooltipText: '[bold]{title}[/]\n{employer}\n[opacity: 0.65]{years}[/]',
+      }),
+    })
+  );
+
+  const cities = [
+    { title: 'Plano, TX',      employer: 'Aimbridge Hospitality',               years: '2023–Present', geometry: { type: 'Point', coordinates: [-96.7, 33.0] } },
+    { title: 'Chicago, IL',    employer: 'KPMG · Blackstone · Hyatt',           years: '2018–2023',    geometry: { type: 'Point', coordinates: [-87.6, 41.9] } },
+    { title: 'San Diego, CA',  employer: 'Hyatt Regency La Jolla & Mission Bay', years: '2017–2018',   geometry: { type: 'Point', coordinates: [-117.2, 32.7] } },
+    { title: 'Long Beach, CA', employer: 'Hyatt Regency Long Beach',             years: '2016–2017',   geometry: { type: 'Point', coordinates: [-118.2, 33.8] } },
+    { title: 'Cannes, France', employer: 'InterContinental Carlton Cannes',      years: '2015',        geometry: { type: 'Point', coordinates: [7.0, 43.6] } },
+    { title: 'Paris, France',  employer: 'Hyatt Regency Paris CDG',              years: '2014',        geometry: { type: 'Point', coordinates: [2.3, 48.9] } },
+    { title: 'Newport, RI',    employer: 'Hyatt Regency Newport',                years: '2013',        geometry: { type: 'Point', coordinates: [-71.3, 41.5] } },
+    { title: 'Costa Mesa, CA', employer: 'Ramada Inn',                           years: '2011–2013',   geometry: { type: 'Point', coordinates: [-117.9, 33.6] } },
+  ];
+  pointSeries.data.setAll(cities);
+
+  chart.appear(800, 100);
+}());
