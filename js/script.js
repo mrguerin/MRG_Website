@@ -199,8 +199,7 @@ sections.forEach(s => sectionObserver.observe(s));
   const cities = [
     { title: 'Plano, TX',      employer: 'Aimbridge Hospitality',               years: '2023–Present', geometry: { type: 'Point', coordinates: [-96.7, 33.0] } },
     { title: 'Chicago, IL',    employer: 'KPMG · Blackstone · Hyatt',           years: '2018–2023',    geometry: { type: 'Point', coordinates: [-87.6, 41.9] } },
-    { title: 'La Jolla, CA',       employer: 'Hyatt Regency La Jolla',       years: '2017–2018',   geometry: { type: 'Point', coordinates: [-117.27, 32.88] } },
-    { title: 'Mission Bay, CA',    employer: 'Hyatt Regency Mission Bay',    years: '2017–2018',   geometry: { type: 'Point', coordinates: [-117.23, 32.77] } },
+    { title: 'San Diego, CA',      employer: 'Hyatt Regency La Jolla & Mission Bay',     years: '2017–2018',   geometry: { type: 'Point', coordinates: [-117.16, 32.72] } },
     { title: 'Long Beach, CA', employer: 'Hyatt Regency Long Beach',             years: '2016–2017',   geometry: { type: 'Point', coordinates: [-118.2, 33.8] } },
     { title: 'Cannes, France', employer: 'InterContinental Carlton Cannes',      years: '2015',        geometry: { type: 'Point', coordinates: [7.0, 43.6] } },
     { title: 'Paris, France',  employer: 'Hyatt Regency Paris CDG',              years: '2014',        geometry: { type: 'Point', coordinates: [2.3, 48.9] } },
