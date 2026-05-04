@@ -152,7 +152,7 @@ sections.forEach(s => sectionObserver.observe(s));
   });
   polygonSeries.mapPolygons.template.states.create('hover', { fill: NAVY });
 
-  /* Trans-Atlantic arcs: Paris → Chicago, Paris → Newport */
+  /* Trans-Atlantic arc: Paris → Chicago */
   const lineSeries = chart.series.push(am5map.MapLineSeries.new(root, {}));
   lineSeries.mapLines.template.setAll({
     stroke:         GOLD,
@@ -161,10 +161,8 @@ sections.forEach(s => sectionObserver.observe(s));
     strokeOpacity:  0.55,
     interactive:    false,
   });
-  [[2.3, 48.9, -87.6, 41.9], [2.3, 48.9, -71.3, 41.5]].forEach(([x1,y1,x2,y2]) => {
-    lineSeries.data.push({
-      geometry: { type: 'LineString', coordinates: [[x1,y1],[x2,y2]] }
-    });
+  lineSeries.data.push({
+    geometry: { type: 'LineString', coordinates: [[2.3, 48.9], [-87.6, 41.9]] }
   });
 
   /* City markers */
@@ -201,11 +199,12 @@ sections.forEach(s => sectionObserver.observe(s));
   const cities = [
     { title: 'Plano, TX',      employer: 'Aimbridge Hospitality',               years: '2023–Present', geometry: { type: 'Point', coordinates: [-96.7, 33.0] } },
     { title: 'Chicago, IL',    employer: 'KPMG · Blackstone · Hyatt',           years: '2018–2023',    geometry: { type: 'Point', coordinates: [-87.6, 41.9] } },
-    { title: 'San Diego, CA',  employer: 'Hyatt Regency La Jolla & Mission Bay', years: '2017–2018',   geometry: { type: 'Point', coordinates: [-117.2, 32.7] } },
+    { title: 'La Jolla, CA',       employer: 'Hyatt Regency La Jolla',       years: '2017–2018',   geometry: { type: 'Point', coordinates: [-117.27, 32.88] } },
+    { title: 'Mission Bay, CA',    employer: 'Hyatt Regency Mission Bay',    years: '2017–2018',   geometry: { type: 'Point', coordinates: [-117.23, 32.77] } },
     { title: 'Long Beach, CA', employer: 'Hyatt Regency Long Beach',             years: '2016–2017',   geometry: { type: 'Point', coordinates: [-118.2, 33.8] } },
     { title: 'Cannes, France', employer: 'InterContinental Carlton Cannes',      years: '2015',        geometry: { type: 'Point', coordinates: [7.0, 43.6] } },
     { title: 'Paris, France',  employer: 'Hyatt Regency Paris CDG',              years: '2014',        geometry: { type: 'Point', coordinates: [2.3, 48.9] } },
-    { title: 'Newport, RI',    employer: 'Hyatt Regency Newport',                years: '2013',        geometry: { type: 'Point', coordinates: [-71.3, 41.5] } },
+    { title: 'Newport Beach, CA', employer: 'Hyatt Regency Newport Beach',         years: '2013',        geometry: { type: 'Point', coordinates: [-117.87, 33.62] } },
     { title: 'Costa Mesa, CA', employer: 'Ramada Inn',                           years: '2011–2013',   geometry: { type: 'Point', coordinates: [-117.9, 33.6] } },
   ];
   pointSeries.data.setAll(cities);
