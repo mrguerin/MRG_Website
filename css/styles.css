@@ -1542,7 +1542,7 @@ section {
 /* 3-col → 2-col tablet → 1-col mobile */
 .case-studies-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: var(--space-6);
 }
 
@@ -1688,43 +1688,38 @@ section {
   margin-bottom: var(--space-12);
 }
 
-/* Contact methods — horizontal row, vertical on mobile */
+/* Contact methods — icon buttons */
 .contact__methods {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-  gap: var(--space-8) var(--space-16);
-  flex-wrap: wrap;
+  gap: var(--space-5);
 }
 
 .contact__method {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-3);
-  color: rgba(248, 244, 238, .7);
-  font-size: var(--text-base);
-  font-weight: 400;
-  text-decoration: none;
-  transition: color 200ms ease;
-}
-
-.contact__method:not(.contact__method--location):hover {
-  color: var(--gold);
-}
-
-.contact__method:not(.contact__method--location):hover .contact__method-icon {
-  transform: scale(1.1);
-}
-
-.contact__method-icon {
-  display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 200ms ease;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  border: 1px solid rgba(201, 168, 76, .35);
+  color: rgba(248, 244, 238, .75);
+  text-decoration: none;
+  transition: color 200ms ease,
+              border-color 200ms ease,
+              background 200ms ease,
+              transform 200ms ease;
 }
 
-.contact__method-icon svg {
+.contact__method:hover {
+  color: var(--gold);
+  border-color: var(--gold);
+  background: rgba(201, 168, 76, .08);
+  transform: translateY(-3px);
+}
+
+.contact__method svg {
   width: 22px;
   height: 22px;
   stroke: currentColor;
@@ -1733,28 +1728,17 @@ section {
 }
 
 /* LinkedIn logo is fill-based, not stroke */
-.contact__method-icon .icon-linkedin {
+.contact__method .icon-linkedin {
   fill: currentColor;
   stroke: none;
   stroke-width: 0;
 }
 
-.contact__method-label {
-  font-size: var(--text-base);
-  line-height: 1;
-}
-
-.contact__method--location {
-  cursor: default;
-  color: rgba(248, 244, 238, .5);
-}
-
-@media (max-width: 599px) {
-  .contact__methods {
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-8);
-  }
+.contact__email-hint {
+  margin-top: var(--space-5);
+  font-size: var(--text-sm);
+  color: rgba(248, 244, 238, .4);
+  letter-spacing: 0.03em;
 }
 
 /* Tearsheet download — centered below contact methods */
