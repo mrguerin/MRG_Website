@@ -152,7 +152,7 @@ sections.forEach(s => sectionObserver.observe(s));
   });
   polygonSeries.mapPolygons.template.states.create('hover', { fill: NAVY });
 
-  /* Trans-Atlantic arc: Paris → Chicago */
+  /* Career journey path — chronological order */
   const lineSeries = chart.series.push(am5map.MapLineSeries.new(root, {}));
   lineSeries.mapLines.template.setAll({
     stroke:         GOLD,
@@ -162,7 +162,19 @@ sections.forEach(s => sectionObserver.observe(s));
     interactive:    false,
   });
   lineSeries.data.push({
-    geometry: { type: 'LineString', coordinates: [[2.3, 48.9], [-87.6, 41.9]] }
+    geometry: {
+      type: 'LineString',
+      coordinates: [
+        [-117.9,  33.6 ],  // Costa Mesa
+        [-117.87, 33.62],  // Newport Beach
+        [2.3,     48.9 ],  // Paris
+        [7.0,     43.6 ],  // Cannes
+        [-118.2,  33.8 ],  // Long Beach
+        [-117.16, 32.72],  // San Diego
+        [-87.6,   41.9 ],  // Chicago
+        [-96.7,   33.0 ],  // Plano
+      ],
+    },
   });
 
   /* City markers */
